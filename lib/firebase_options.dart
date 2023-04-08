@@ -50,20 +50,22 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD_Cpnjd-r--_0sZmYQhAp5U-e44_NxJ2s',
-    appId: '1:507942372556:android:bf8fe7b6cc898e0ba56e69',
-    messagingSenderId: '507942372556',
-    projectId: 'retailor-11',
-    storageBucket: 'retailor-11.appspot.com',
+    apiKey: 'AIzaSyAX7F9uEaqdduQLjFXyu5pwZx0pSaaupbw',
+    appId: '1:718634784770:android:732b6b0f8858854d3caf1b',
+    messagingSenderId: '718634784770',
+    projectId: 'retailor-11-dd4d2',
+    databaseURL: 'https://retailor-11-dd4d2-default-rtdb.firebaseio.com',
+    storageBucket: 'retailor-11-dd4d2.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB6qze-gJNRmAGGJAqB4PQWUhjttxUFQkY',
-    appId: '1:507942372556:ios:bc13ece4b6110e09a56e69',
-    messagingSenderId: '507942372556',
-    projectId: 'retailor-11',
-    storageBucket: 'retailor-11.appspot.com',
-    iosClientId: '507942372556-gegvvtsrm0l43r9g2jkjg51od24cq5om.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDp5bu8xWTNS0bjB8xbZ4MG-GIgeTXCH7I',
+    appId: '1:718634784770:ios:69add278b39b53313caf1b',
+    messagingSenderId: '718634784770',
+    projectId: 'retailor-11-dd4d2',
+    databaseURL: 'https://retailor-11-dd4d2-default-rtdb.firebaseio.com',
+    storageBucket: 'retailor-11-dd4d2.appspot.com',
+    iosClientId: '718634784770-tm2itkemsdjorsk3fk4vpf1c848p7e72.apps.googleusercontent.com',
     iosBundleId: 'com.example.retailor',
   );
 }
