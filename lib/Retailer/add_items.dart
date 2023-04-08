@@ -5,7 +5,12 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:retailor/Services/MyUtils.dart';
 
-class AddItemsScreen extends StatelessWidget {
+class AddItemsScreen extends StatefulWidget {
+  @override
+  State<AddItemsScreen> createState() => _AddItemsScreenState();
+}
+
+class _AddItemsScreenState extends State<AddItemsScreen> {
   @override
   Widget build(BuildContext context) {
     FlutterBarcodeScanner.getBarcodeStreamReceiver(
@@ -19,19 +24,119 @@ class AddItemsScreen extends StatelessWidget {
 
 void processBarcode(String barcode, BuildContext context) async {
   MyUtils.showLoaderDialog(context);
-  bool exists = false;
-  bool existsForShop = await checkIfItemExistsForShop(barcode);
-  if (!existsForShop) exists = await checkIfItemExists(barcode);
-  AlertDialog alert = AlertDialog();
-  final DataSnapshot itemSnapshot, shopItemSnapshot;
-  if (exists || existsForShop) {
-    itemSnapshot = await FirebaseDatabase.instance
-        .ref()
-        .child("Items")
-        .child(barcode)
-        .get();
+  final itemSnapshot = await checkIfItemExists(barcode);
+  final shopItemSnapshot = await checkIfItemExistsForShop(barcode);
+  TextEditingController? nameController,
+      manufacturerController,
+      mrpController,
+      priceController,
+      stockController;
+  AlertDialog alert = AlertDialog(
+    content: Container(
+      margin: EdgeInsets.all(16),
+      child: Center(
+        child: Column(
+          children: [
+            Text("${shopItemSnapshot.exists ? 'Change' : 'Add'} Item"),
+            Container(
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
+              decoration: const BoxDecoration(
+                  //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
+                  ),
+              child: TextField(
+                onChanged: (value) {},
+                controller: nameController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Name",
+                    hintStyle: TextStyle(color: Colors.grey[400])),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
+              decoration: const BoxDecoration(
+                  //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
+                  ),
+              child: TextField(
+                onChanged: (value) {},
+                controller: manufacturerController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Manufacturer",
+                    hintStyle: TextStyle(color: Colors.grey[400])),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
+              decoration: const BoxDecoration(
+                  //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
+                  ),
+              child: TextField(
+                onChanged: (value) {},
+                controller: mrpController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "MRP",
+                    hintStyle: TextStyle(color: Colors.grey[400])),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
+              decoration: const BoxDecoration(
+                  //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
+                  ),
+              child: TextField(
+                onChanged: (value) {},
+                controller: priceController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Your price",
+                    hintStyle: TextStyle(color: Colors.grey[400])),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
+              decoration: const BoxDecoration(
+                  //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
+                  ),
+              child: TextField(
+                onChanged: (value) {},
+                controller: stockController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Stock",
+                    hintStyle: TextStyle(color: Colors.grey[400])),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+    actions: [
+      TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("Cancel")),
+      TextButton(onPressed: () {}, child: Text("Save"))
+    ],
+  );
+  if (shopItemSnapshot.exists) {
+    stockController!.text = shopItemSnapshot.child('stock').value.toString();
+    priceController!.text = shopItemSnapshot.child('price').value.toString();
   }
-  showDialog(
+  if (itemSnapshot.exists) {
+    nameController!.text = itemSnapshot.child('name').value.toString();
+    manufacturerController!.text =
+        itemSnapshot.child('manufacturer').value.toString();
+    mrpController!.text = itemSnapshot.child('mrp').value.toString();
+  }
+  var T = showDialog(
     barrierDismissible: true,
     context: context,
     builder: (BuildContext context) {
@@ -40,13 +145,13 @@ void processBarcode(String barcode, BuildContext context) async {
   );
 }
 
-Future<bool> checkIfItemExists(String barcode) async {
+Future<DataSnapshot> checkIfItemExists(String barcode) async {
   final snapshot =
       await FirebaseDatabase.instance.ref().child("Items").child(barcode).get();
-  return snapshot.exists;
+  return snapshot;
 }
 
-Future<bool> checkIfItemExistsForShop(String barcode) async {
+Future<DataSnapshot> checkIfItemExistsForShop(String barcode) async {
   String shopId = (await MyUtils.getFromSharedRef("shopId"))!;
   final snapshot = await FirebaseDatabase.instance
       .ref()
@@ -54,5 +159,5 @@ Future<bool> checkIfItemExistsForShop(String barcode) async {
       .child(shopId)
       .child(barcode)
       .get();
-  return snapshot.exists;
+  return snapshot;
 }
