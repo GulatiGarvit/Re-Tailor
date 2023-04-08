@@ -16,6 +16,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
     FlutterBarcodeScanner.getBarcodeStreamReceiver(
             "#ff6666", "Cancel", false, ScanMode.DEFAULT)!
         .listen((barcode) {
+      Fluttertoast.showToast(msg: barcode);
       processBarcode(barcode, context);
     });
     throw const Placeholder();
@@ -126,6 +127,13 @@ void processBarcode(String barcode, BuildContext context) async {
       TextButton(onPressed: () {}, child: Text("Save"))
     ],
   );
+  await showDialog(
+    barrierDismissible: true,
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
   if (shopItemSnapshot.exists) {
     stockController!.text = shopItemSnapshot.child('stock').value.toString();
     priceController!.text = shopItemSnapshot.child('price').value.toString();
@@ -136,13 +144,6 @@ void processBarcode(String barcode, BuildContext context) async {
         itemSnapshot.child('manufacturer').value.toString();
     mrpController!.text = itemSnapshot.child('mrp').value.toString();
   }
-  var T = showDialog(
-    barrierDismissible: true,
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
 }
 
 Future<DataSnapshot> checkIfItemExists(String barcode) async {

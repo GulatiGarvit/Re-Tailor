@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^2.1.0
   geolocator: ^9.0.2
   random_string: ^2.3.1
+  parse_server_sdk_flutter: ^4.0.0
 
 dev_dependencies:
   flutter_test:

@@ -101,8 +101,9 @@ class SignUpScreen extends StatelessWidget {
                                   //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
                                   ),
                               child: TextField(
+                                keyboardType: TextInputType.name,
                                 onChanged: (value) {
-                                  _name = value;
+                                  _name = value.trim();
                                 },
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
@@ -117,8 +118,9 @@ class SignUpScreen extends StatelessWidget {
                                   //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
                                   ),
                               child: TextField(
+                                keyboardType: TextInputType.phone,
                                 onChanged: (value) {
-                                  _phoneNo = value;
+                                  _phoneNo = value.trim();
                                 },
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
@@ -133,8 +135,9 @@ class SignUpScreen extends StatelessWidget {
                                   //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
                                   ),
                               child: TextField(
+                                keyboardType: TextInputType.emailAddress,
                                 onChanged: (value) {
-                                  _email = value;
+                                  _email = value.trim();
                                 },
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
@@ -146,6 +149,7 @@ class SignUpScreen extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.fromLTRB(8, 4, 8, 8),
                               child: TextField(
+                                obscureText: true,
                                 onChanged: (value) {
                                   _password = value;
                                 },

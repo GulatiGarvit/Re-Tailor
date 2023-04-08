@@ -13,7 +13,7 @@ import '../Login/login_screen.dart';
 import 'Services/location.dart';
 
 class RegisterShop extends StatelessWidget {
-  String _shopName = "", _shopAddress = "", _regNo = "", uid = "";
+  String _shopName = "", _shopAddress = "", _regNo = "", shopId = "";
   String? latLong;
   @override
   Widget build(BuildContext context) {
@@ -109,8 +109,9 @@ class RegisterShop extends StatelessWidget {
                                   //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
                                   ),
                               child: TextField(
+                                keyboardType: TextInputType.name,
                                 onChanged: (value) {
-                                  _shopName = value;
+                                  _shopName = value.trim();
                                 },
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
@@ -122,8 +123,9 @@ class RegisterShop extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.all(8.0),
                               child: TextField(
+                                keyboardType: TextInputType.streetAddress,
                                 onChanged: (value) {
-                                  _shopAddress = value;
+                                  _shopAddress = value.trim();
                                 },
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
@@ -136,7 +138,7 @@ class RegisterShop extends StatelessWidget {
                               padding: EdgeInsets.all(8.0),
                               child: TextField(
                                 onChanged: (value) {
-                                  _regNo = value;
+                                  _regNo = value.trim();
                                 },
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
@@ -152,15 +154,16 @@ class RegisterShop extends StatelessWidget {
                         height: 30,
                       ),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           if (latLong == null) {
                             Fluttertoast.showToast(
                                 msg: "Please wait, fetching your location");
                             return;
                           }
-                          uid = randomAlpha(10);
-                          MyFirebaseDatabase.addShop(
-                              uid, _shopAddress, _shopName, _regNo, latLong!);
+                          shopId = randomAlpha(10);
+                          await MyUtils.addToSharedRef("shopId", shopId);
+                          MyFirebaseDatabase.addShop(shopId, _shopAddress,
+                              _shopName, _regNo, latLong!);
                           Fluttertoast.showToast(
                               msg: "Data updated on database");
                         },

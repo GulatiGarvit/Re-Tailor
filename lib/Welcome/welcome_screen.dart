@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:retailor/Login/login_screen.dart';
+import 'package:retailor/Retailer/retailer_page.dart';
 import 'package:retailor/ScannerScreen/scanner_screen.dart';
 import 'package:retailor/Signup/signup_screen.dart';
 import 'package:retailor/firebase_options.dart';
@@ -9,7 +10,7 @@ import 'package:retailor/firebase_options.dart';
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //checkForUser(context);
+    checkForUser(context);
     return Scaffold(
       body: Body(),
     );
@@ -20,7 +21,7 @@ class WelcomeScreen extends StatelessWidget {
         options: DefaultFirebaseOptions.currentPlatform);
     if (FirebaseAuth.instance.currentUser != null) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return ScannerScreen();
+        return RetailerPage();
       }));
     }
   }
@@ -72,7 +73,7 @@ class Body extends StatelessWidget {
                           ])),
                       child: const Center(
                         child: Text(
-                          "Sign In",
+                          "Login",
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),

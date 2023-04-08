@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:retailor/Retailer/add_items.dart';
 
 class RetailerPage extends StatelessWidget {
   const RetailerPage({super.key});
@@ -13,7 +14,11 @@ class RetailerPage extends StatelessWidget {
           child: Column(
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return AddItemsScreen();
+                  }));
+                },
                 child: Container(
                   height: 50,
                   decoration: BoxDecoration(

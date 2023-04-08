@@ -100,8 +100,9 @@ class LoginScreen extends StatelessWidget {
                                   //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
                                   ),
                               child: TextField(
+                                keyboardType: TextInputType.emailAddress,
                                 onChanged: (value) {
-                                  _email = value;
+                                  _email = value.trim();
                                 },
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
@@ -113,6 +114,7 @@ class LoginScreen extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.fromLTRB(8, 4, 8, 8),
                               child: TextField(
+                                obscureText: true,
                                 onChanged: (value) {
                                   _password = value;
                                 },
