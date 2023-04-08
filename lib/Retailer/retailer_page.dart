@@ -1,9 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:retailor/Retailer/inventory.dart';
+import 'package:retailor/ScannerScreen/scanner_screen.dart';
 import 'package:retailor/Services/firebase_auth.dart';
 
-class RetailerPage extends StatelessWidget {
+import '../Services/Bill.dart';
+
+class RetailerPage extends StatefulWidget {
+  @override
+  State<RetailerPage> createState() => _RetailerPageState();
+}
+
+class _RetailerPageState extends State<RetailerPage> {
   Map<String, double> dataMap = {
     "Oreo": 5,
     "Lays Cr..": 3,
@@ -12,6 +23,14 @@ class RetailerPage extends StatelessWidget {
     'Papad': 2,
     'Matches': 5
   };
+  var bills = <Bill>[];
+  var billWidgets = <Widget>[];
+
+  @override
+  void initState() {
+    getBills();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +68,10 @@ class RetailerPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ScannerScreen()));
+        },
         backgroundColor: Color.fromRGBO(79, 84, 201, 1),
         child: Icon(Icons.add_shopping_cart),
       ),
@@ -145,178 +167,91 @@ class RetailerPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Recent Bills",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      InkWell(
-                        splashFactory: InkRipple.splashFactory,
-                        onTap: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 16.0),
-                          child: Row(
-                            children: [
-                              Icon(Icons.receipt),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text("Ishita"),
-                                  SizedBox(
-                                    height: 2,
-                                  ),
-                                  Text(
-                                    "Ma chuda",
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                              Spacer(),
-                              Text(
-                                "₹50",
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        splashFactory: InkRipple.splashFactory,
-                        onTap: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 16.0),
-                          child: Row(
-                            children: [
-                              Icon(Icons.receipt),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text("Ishita"),
-                                  SizedBox(
-                                    height: 2,
-                                  ),
-                                  Text(
-                                    "Ma chuda",
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                              Spacer(),
-                              Text(
-                                "₹50",
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        splashFactory: InkRipple.splashFactory,
-                        onTap: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 16.0),
-                          child: Row(
-                            children: [
-                              Icon(Icons.receipt),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text("Ishita"),
-                                  SizedBox(
-                                    height: 2,
-                                  ),
-                                  Text(
-                                    "Ma chuda",
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                              Spacer(),
-                              Text(
-                                "₹50",
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        splashFactory: InkRipple.splashFactory,
-                        onTap: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 16.0),
-                          child: Row(
-                            children: [
-                              Icon(Icons.receipt),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text("Ishita"),
-                                  SizedBox(
-                                    height: 2,
-                                  ),
-                                  Text(
-                                    "Ma chuda",
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                              Spacer(),
-                              Text(
-                                "₹50",
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                  child: const Text(
+                    "Recent Bills",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                 ),
+                SingleChildScrollView(
+                    child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: billWidgets,
+                ))
               ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  void getBills() async {
+    final shopIdSnapshot = await FirebaseDatabase.instance
+        .ref()
+        .child("Users")
+        .child(FirebaseAuth.instance.currentUser!.uid)
+        .child("shopId")
+        .get();
+    final String shopId = shopIdSnapshot.value.toString();
+    final billsSnapshot = await FirebaseDatabase.instance
+        .ref()
+        .child("Shops")
+        .child(shopId)
+        .child("bills")
+        .limitToFirst(5)
+        .get();
+    billsSnapshot.children.forEach((element) async {
+      final snapshot = await FirebaseDatabase.instance
+          .ref()
+          .child("Bills")
+          .child(element.key!)
+          .get();
+      Bill bill = Bill(snapshot);
+      bills.add(bill);
+      setState(() {
+        billWidgets.add(
+          InkWell(
+            splashFactory: InkRipple.splashFactory,
+            onTap: () {
+              Fluttertoast.showToast(msg: bill.url!);
+            },
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+              child: Row(
+                children: [
+                  Icon(Icons.receipt),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(bill.customerName!),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        bill.itemString!,
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  Text(
+                    "₹${bill.amount!}",
+                    style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      });
+    });
   }
 }

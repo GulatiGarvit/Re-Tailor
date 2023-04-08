@@ -48,6 +48,7 @@ dependencies:
   pie_chart: ^5.3.2
   cached_network_image: ^3.2.3
   numberpicker: ^2.1.1
+  mobile_scanner: ^3.2.0
 
 dev_dependencies:
   flutter_test:
