@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:retailor/Animation/FadeAnimation.dart';
 import 'package:retailor/Services/firebase_db.dart';
 import 'package:retailor/customer_page.dart';
-import 'package:retailor/retailer_page.dart';
+import 'package:retailor/Retailer/retailer_page.dart';
 
 class ChoicePage extends StatelessWidget {
   @override

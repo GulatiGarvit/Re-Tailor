@@ -1,14 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:retailor/Animation/FadeAnimation.dart';
 import 'package:retailor/Services/MyUtils.dart';
 import 'package:retailor/Services/firebase_auth.dart';
 import 'package:retailor/Services/firebase_db.dart';
 import 'package:retailor/choice_page.dart';
 import 'package:retailor/customer_page.dart';
-import 'package:retailor/retailer_page.dart';
+import 'package:retailor/Retailer/retailer_page.dart';
 
 class LoginScreen extends StatelessWidget {
   String _email = "", _password = "";
@@ -97,10 +95,7 @@ class LoginScreen extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             Container(
-                              padding: const EdgeInsets.all(8.0),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
                               decoration: const BoxDecoration(
                                   //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
                                   ),
@@ -116,7 +111,7 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.fromLTRB(8, 4, 8, 8),
                               child: TextField(
                                 onChanged: (value) {
                                   _password = value;

@@ -88,7 +88,7 @@ class SignUpScreen extends StatelessWidget {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
-                              BoxShadow(
+                              const BoxShadow(
                                   color: Color.fromRGBO(143, 148, 251, .2),
                                   blurRadius: 20.0,
                                   offset: Offset(0, 10))
@@ -96,10 +96,7 @@ class SignUpScreen extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             Container(
-                              padding: const EdgeInsets.all(8.0),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
                               decoration: const BoxDecoration(
                                   //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
                                   ),
@@ -115,7 +112,7 @@ class SignUpScreen extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.all(8.0),
+                              padding: EdgeInsets.fromLTRB(8, 4, 8, 8),
                               child: TextField(
                                 onChanged: (value) {
                                   _password = value;
