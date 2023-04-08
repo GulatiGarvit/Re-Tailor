@@ -10,7 +10,7 @@ import 'package:retailor/choice_page.dart';
 import '../Login/login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
-  String _email = "", _password = "";
+  String _email = "", _password = "", _name = "", _phoneNo = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,6 +97,38 @@ class SignUpScreen extends StatelessWidget {
                           children: <Widget>[
                             Container(
                               padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
+                              decoration: const BoxDecoration(
+                                  //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
+                                  ),
+                              child: TextField(
+                                onChanged: (value) {
+                                  _name = value;
+                                },
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "Name",
+                                    hintStyle:
+                                        TextStyle(color: Colors.grey[400])),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: const BoxDecoration(
+                                  //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
+                                  ),
+                              child: TextField(
+                                onChanged: (value) {
+                                  _phoneNo = value;
+                                },
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "Phone number",
+                                    hintStyle:
+                                        TextStyle(color: Colors.grey[400])),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8.0),
                               decoration: const BoxDecoration(
                                   //border: Border(bottom: BorderSide(color: Colors.grey[400]))!
                                   ),
@@ -191,7 +223,7 @@ class SignUpScreen extends StatelessWidget {
       case Code.successful:
         if (FirebaseAuth.instance.currentUser != null) {
           await MyFirebaseDatabase.addUser(
-              FirebaseAuth.instance.currentUser!.uid, email);
+              FirebaseAuth.instance.currentUser!.uid, email, _name, _phoneNo);
           Fluttertoast.showToast(msg: "Signed Up Succesfully");
           Navigator.pop(context);
           Navigator.of(context).pushAndRemoveUntil(

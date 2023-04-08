@@ -9,7 +9,7 @@ import 'package:retailor/firebase_options.dart';
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    checkForUser(context);
+    //checkForUser(context);
     return Scaffold(
       body: Body(),
     );

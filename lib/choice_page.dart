@@ -5,6 +5,7 @@ import 'package:retailor/Animation/FadeAnimation.dart';
 import 'package:retailor/Services/firebase_db.dart';
 import 'package:retailor/customer_page.dart';
 import 'package:retailor/Retailer/retailer_page.dart';
+import 'package:retailor/register_shop_page.dart';
 
 class ChoicePage extends StatelessWidget {
   @override
@@ -102,7 +103,7 @@ class ChoicePage extends StatelessWidget {
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                   builder: (BuildContext context) =>
-                                      RetailerPage()));
+                                      RegisterShop()));
                         },
                         child: Container(
                           height: 50,
