@@ -5,40 +5,34 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:retailor/Services/MyUtils.dart';
 
-class AddItemsScreen extends StatefulWidget {
+class ChangeItemScreen extends StatefulWidget {
+  String barcode;
+  ChangeItemScreen(this.barcode);
   @override
-  State<AddItemsScreen> createState() => _AddItemsScreenState();
+  State<ChangeItemScreen> createState() => _ChangeItemScreen();
 }
 
-class _AddItemsScreenState extends State<AddItemsScreen> {
-  bool isBarcodeScanned = false;
-  bool itemExists = false;
-  String? shopId, currentBarcode;
+class _ChangeItemScreen extends State<ChangeItemScreen> {
+  String? shopId;
   TextEditingController nameController = TextEditingController(),
       manufacturerController = TextEditingController(),
       mrpController = TextEditingController(),
       priceController = TextEditingController(),
       stockController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (!isBarcodeScanned) {
-      FlutterBarcodeScanner.scanBarcode(
-              "#ff6666", "Cancel", false, ScanMode.DEFAULT)
-          .then((barcode) {
-        if (barcode == "-1") {
-          Navigator.pop(context);
-          return;
-        }
-        isBarcodeScanned = true;
-        Fluttertoast.showToast(msg: barcode);
-        processBarcode(barcode, context);
-      });
-    }
+    loadData(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            "Add/Change Item",
+          title: const Text(
+            "Change Item",
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Color.fromRGBO(143, 148, 251, .6),
@@ -64,21 +58,21 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                   onChanged: (value) {},
                   controller: nameController,
                   keyboardType: TextInputType.text,
-                  enabled: !itemExists,
+                  enabled: false,
                   decoration: const InputDecoration(labelText: 'Name'),
                 ),
                 TextField(
                   onChanged: (value) {},
                   controller: manufacturerController,
                   keyboardType: TextInputType.text,
-                  enabled: !itemExists,
+                  enabled: false,
                   decoration: const InputDecoration(labelText: 'Manufacturer'),
                 ),
                 TextField(
                   onChanged: (value) {},
                   controller: mrpController,
                   keyboardType: TextInputType.number,
-                  enabled: !itemExists,
+                  enabled: false,
                   decoration: const InputDecoration(labelText: 'MRP'),
                 ),
                 TextField(
@@ -102,9 +96,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                         flex: 1,
                         child: GestureDetector(
                           onTap: () {
-                            isBarcodeScanned = false;
-                            itemExists = false;
-                            setState(() {});
+                            Navigator.pop(context);
                           },
                           child: Container(
                             height: 50,
@@ -129,7 +121,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                         flex: 1,
                         child: GestureDetector(
                           onTap: () {
-                            updateOnDatabse();
+                            updateData();
                           },
                           child: Container(
                             height: 50,
@@ -161,79 +153,46 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
     );
   }
 
-  void processBarcode(String barcode, BuildContext context) async {
-    currentBarcode = barcode;
-    MyUtils.showLoaderDialog(context, isCancellable: false);
-    DataSnapshot itemSnapshot = await checkIfItemExists(barcode);
-    DataSnapshot shopItemSnapshot = await checkIfItemExistsForShop(barcode);
-    if (shopItemSnapshot.exists) {
-      stockController.text = shopItemSnapshot.child('stock').value.toString();
-      priceController.text =
-          "₹${shopItemSnapshot.child('price').value.toString()}";
-    }
-    if (itemSnapshot.exists) {
-      itemExists = true;
-      nameController.text = itemSnapshot.child('name').value.toString();
-      mrpController.text = "₹${itemSnapshot.child('mrp').value.toString()}";
-      manufacturerController.text =
-          itemSnapshot.child('manufacturer').value.toString();
-    }
-    Navigator.pop(context);
-    setState(() {});
+  void loadData(BuildContext context) async {
+    final shopIdSnapshot = await FirebaseDatabase.instance
+        .ref()
+        .child("Users")
+        .child(FirebaseAuth.instance.currentUser!.uid)
+        .child("shopId")
+        .get();
+    shopId = shopIdSnapshot.value.toString();
+    final itemSnapshot = await FirebaseDatabase.instance
+        .ref()
+        .child("Items")
+        .child(widget.barcode)
+        .get();
+    final shopItemSnapshot = await FirebaseDatabase.instance
+        .ref()
+        .child("ShopItems")
+        .child(shopId!)
+        .child(widget.barcode)
+        .get();
+    nameController.text = itemSnapshot.child('name').value.toString();
+    manufacturerController.text =
+        itemSnapshot.child('manufacturer').value.toString();
+    mrpController.text = "₹${itemSnapshot.child('mrp').value.toString()}";
+    stockController.text = shopItemSnapshot.child('stock').value.toString();
+    priceController.text =
+        "₹${shopItemSnapshot.child('price').value.toString()}";
   }
 
-  void updateOnDatabse() async {
+  void updateData() async {
     MyUtils.showLoaderDialog(context);
-    if (!itemExists) {
-      await FirebaseDatabase.instance
-          .ref()
-          .child('Items')
-          .child(currentBarcode!)
-          .set({
-        'name': nameController.text,
-        'mrp': mrpController.text.replaceAll("₹", ""),
-        'manufacturer': manufacturerController.text
-      });
-    }
     await FirebaseDatabase.instance
         .ref()
-        .child('ShopItems')
+        .child("ShopItems")
         .child(shopId!)
-        .child(currentBarcode!)
+        .child(widget.barcode)
         .update({
       'price': priceController.text.replaceAll("₹", ""),
       'stock': stockController.text,
     });
     Navigator.pop(context);
-    isBarcodeScanned = false;
-    itemExists = false;
-    currentBarcode = null;
-    setState(() {});
-  }
-
-  Future<DataSnapshot> checkIfItemExistsForShop(String barcode) async {
-    final shopIdSnapshot = await FirebaseDatabase.instance
-        .ref()
-        .child("Users")
-        .child(FirebaseAuth.instance.currentUser!.uid)
-        .child('shopId')
-        .get();
-    shopId = shopIdSnapshot.value.toString();
-    final snapshot = await FirebaseDatabase.instance
-        .ref()
-        .child("ShopItems")
-        .child(shopId!)
-        .child(barcode)
-        .get();
-    return snapshot;
-  }
-
-  Future<DataSnapshot> checkIfItemExists(String barcode) async {
-    final snapshot = await FirebaseDatabase.instance
-        .ref()
-        .child("Items")
-        .child(barcode)
-        .get();
-    return snapshot;
+    Navigator.pop(context);
   }
 }

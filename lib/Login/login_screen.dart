@@ -203,7 +203,7 @@ class LoginScreen extends StatelessWidget {
             if (role == "retailer") {
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
-                      builder: (BuildContext context) => const RetailerPage()),
+                      builder: (BuildContext context) => RetailerPage()),
                   (Route<dynamic> route) => false);
             } else {
               Navigator.of(context).pushAndRemoveUntil(

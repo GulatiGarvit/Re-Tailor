@@ -45,6 +45,9 @@ dependencies:
   geolocator: ^9.0.2
   random_string: ^2.3.1
   parse_server_sdk_flutter: ^4.0.0
+  pie_chart: ^5.3.2
+  cached_network_image: ^3.2.3
+  numberpicker: ^2.1.1
 
 dev_dependencies:
   flutter_test:

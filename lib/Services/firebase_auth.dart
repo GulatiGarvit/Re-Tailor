@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:retailor/Welcome/welcome_screen.dart';
 import 'package:retailor/firebase_options.dart';
 
 enum Code {
@@ -77,7 +79,10 @@ class MyFirebaseAuth {
     return true;
   }
 
-  static void signOut() async {
+  static void signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
+      return WelcomeScreen();
+    }), (route) => false);
   }
 }
