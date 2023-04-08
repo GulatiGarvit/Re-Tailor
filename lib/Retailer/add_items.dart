@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -13,13 +12,13 @@ class AddItemsScreen extends StatefulWidget {
 class _AddItemsScreenState extends State<AddItemsScreen> {
   @override
   Widget build(BuildContext context) {
-    FlutterBarcodeScanner.getBarcodeStreamReceiver(
+    FlutterBarcodeScanner.scanBarcode(
             "#ff6666", "Cancel", false, ScanMode.DEFAULT)!
-        .listen((barcode) {
+        .then((barcode) {
       Fluttertoast.showToast(msg: barcode);
       processBarcode(barcode, context);
     });
-    throw const Placeholder();
+    return const Placeholder();
   }
 }
 
