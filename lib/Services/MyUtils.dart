@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyUtils {
-  static showLoaderDialog(BuildContext context) {
+  static showLoaderDialog(BuildContext context, {bool isCancellable = true}) {
     AlertDialog alert = AlertDialog(
       content: Row(
         children: [
@@ -14,7 +14,7 @@ class MyUtils {
       ),
     );
     showDialog(
-      barrierDismissible: true,
+      barrierDismissible: isCancellable,
       context: context,
       builder: (BuildContext context) {
         return alert;
