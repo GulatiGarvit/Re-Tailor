@@ -26,11 +26,11 @@ void processBarcode(String barcode, BuildContext context) async {
   MyUtils.showLoaderDialog(context);
   final itemSnapshot = await checkIfItemExists(barcode);
   final shopItemSnapshot = await checkIfItemExistsForShop(barcode);
-  TextEditingController? nameController,
-      manufacturerController,
-      mrpController,
-      priceController,
-      stockController;
+  TextEditingController nameController = TextEditingController(),
+      manufacturerController = TextEditingController(),
+      mrpController = TextEditingController(),
+      priceController = TextEditingController(),
+      stockController = TextEditingController();
   AlertDialog alert = AlertDialog(
     content: Container(
       margin: EdgeInsets.all(16),
