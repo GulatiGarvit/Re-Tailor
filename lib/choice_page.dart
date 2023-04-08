@@ -27,57 +27,49 @@ class ChoicePage extends StatelessWidget {
                         left: 30,
                         width: 80,
                         height: 300,
-                        child: FadeAnimation(
-                            1,
-                            Container(
-                              decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/light-1.png'))),
-                            )),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/light-1.png'))),
+                        ),
                       ),
                       Positioned(
                         left: 140,
                         width: 80,
                         height: 250,
-                        child: FadeAnimation(
-                            1.3,
-                            Container(
-                              decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/light-2.png'))),
-                            )),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/light-2.png'))),
+                        ),
                       ),
                       Positioned(
                         right: 40,
                         top: 40,
                         width: 80,
                         height: 250,
-                        child: FadeAnimation(
-                            1.5,
-                            Container(
-                              decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/clock.png'))),
-                            )),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/clock.png'))),
+                        ),
                       ),
                       Positioned(
-                        child: FadeAnimation(
-                            1.6,
-                            Container(
-                              margin: const EdgeInsets.only(top: 50),
-                              child: const Center(
-                                child: Text(
-                                  "Role",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 40,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            )),
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 50),
+                          child: const Center(
+                            child: Text(
+                              "Role",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
                       )
                     ],
                   ),
@@ -86,87 +78,81 @@ class ChoicePage extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: <Widget>[
-                      FadeAnimation(
-                          1.8,
-                          Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Color.fromRGBO(143, 148, 251, .2),
-                                      blurRadius: 20.0,
-                                      offset: Offset(0, 10))
-                                ]),
-                          )),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color.fromRGBO(143, 148, 251, .2),
+                                  blurRadius: 20.0,
+                                  offset: Offset(0, 10))
+                            ]),
+                      ),
                       const SizedBox(
                         height: 50,
                       ),
-                      FadeAnimation(
-                          2,
-                          GestureDetector(
-                            onTap: () {
-                              MyFirebaseDatabase.setRole(
-                                  FirebaseAuth.instance.currentUser!.uid,
-                                  "retailer");
-                              showToast();
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          RetailerPage()));
-                            },
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  gradient: const LinearGradient(colors: [
-                                    Color.fromRGBO(143, 148, 251, 1),
-                                    Color.fromRGBO(143, 148, 251, .6),
-                                  ])),
-                              child: const Center(
-                                child: Text(
-                                  "Retailer",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
+                      GestureDetector(
+                        onTap: () {
+                          MyFirebaseDatabase.setRole(
+                              FirebaseAuth.instance.currentUser!.uid,
+                              "retailer");
+                          showToast();
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      RetailerPage()));
+                        },
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: const LinearGradient(colors: [
+                                Color.fromRGBO(143, 148, 251, 1),
+                                Color.fromRGBO(143, 148, 251, .6),
+                              ])),
+                          child: const Center(
+                            child: Text(
+                              "Retailer",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          )),
+                          ),
+                        ),
+                      ),
                       const SizedBox(
                         height: 30,
                       ),
-                      FadeAnimation(
-                          2,
-                          GestureDetector(
-                            onTap: () {
-                              MyFirebaseDatabase.setRole(
-                                  FirebaseAuth.instance.currentUser!.uid,
-                                  "customer");
-                              showToast();
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          CustomerPage()));
-                            },
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  gradient: const LinearGradient(colors: [
-                                    Color.fromRGBO(143, 148, 251, 1),
-                                    Color.fromRGBO(143, 148, 251, .6),
-                                  ])),
-                              child: const Center(
-                                  child: Text(
-                                "Customer",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                            ),
+                      GestureDetector(
+                        onTap: () {
+                          MyFirebaseDatabase.setRole(
+                              FirebaseAuth.instance.currentUser!.uid,
+                              "customer");
+                          showToast();
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      CustomerPage()));
+                        },
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: const LinearGradient(colors: [
+                                Color.fromRGBO(143, 148, 251, 1),
+                                Color.fromRGBO(143, 148, 251, .6),
+                              ])),
+                          child: const Center(
+                              child: Text(
+                            "Customer",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           )),
+                        ),
+                      ),
                       const SizedBox(
                         height: 50,
                       ),
