@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:retailor/Services/CartItem.dart';
+import 'package:retailor/Services/MyUtils.dart';
 
 class CartPage extends StatefulWidget {
   String cartId;
@@ -18,6 +19,7 @@ class _CartPageState extends State<CartPage> {
   int discount = 0, total = 0, subtotal = 0;
   var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   bool isLoading = false;
+  String? shopId;
   var items = <CartItem>[];
   @override
   void initState() {
@@ -211,7 +213,9 @@ class _CartPageState extends State<CartPage> {
             child: Align(
               alignment: AlignmentDirectional.bottomCenter,
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  generateBill();
+                },
                 child: Container(
                   height: 50,
                   decoration: BoxDecoration(
@@ -222,7 +226,7 @@ class _CartPageState extends State<CartPage> {
                       ])),
                   child: const Center(
                     child: Text(
-                      "Continue",
+                      "Generate Bill",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -246,7 +250,7 @@ class _CartPageState extends State<CartPage> {
         .child(FirebaseAuth.instance.currentUser!.uid)
         .child('shopId')
         .get();
-    String shopId = shopIdSnapshot.value.toString();
+    shopId = shopIdSnapshot.value.toString();
 
     final cartSnapshot = await FirebaseDatabase.instance
         .ref()
@@ -269,7 +273,7 @@ class _CartPageState extends State<CartPage> {
       final shopItemSnapshot = await FirebaseDatabase.instance
           .ref()
           .child("ShopItems")
-          .child(shopId)
+          .child(shopId!)
           .child(snapshot.key!)
           .get();
       item.price = shopItemSnapshot.child('price').value.toString();
@@ -305,5 +309,21 @@ class _CartPageState extends State<CartPage> {
       total += subTotal - discount;
     }
     return total;
+  }
+
+  void generateBill() async {
+    MyUtils.showLoaderDialog(context);
+    final billRef = FirebaseDatabase.instance.ref().child("Bills").push();
+    await billRef.set({
+      'amount': total,
+      'customerName': 'Dummy User',
+      'itemString': calculateItemString(),
+      'shopId': shopId,
+      'url': 'https://google.com'
+    });
+  }
+
+  calculateItemString() {
+    return "${items[0].name}, ${items[1].name}...";
   }
 }

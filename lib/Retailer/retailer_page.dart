@@ -143,7 +143,7 @@ class _RetailerPageState extends State<RetailerPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
-                    "Hi, Garvit!",
+                    "Hi, ${FirebaseAuth.instance.currentUser!.displayName}",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
