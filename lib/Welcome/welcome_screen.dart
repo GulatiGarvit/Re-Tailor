@@ -38,17 +38,20 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(" RE-TAILOR ",
-                style: TextStyle(
-                    fontSize: 50,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.indigo)),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50),
+              child: Text(" RE-TAILOR ",
+                  style: TextStyle(
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.indigo)),
+            ),
             Positioned(
               bottom: 0,
               left: 0,
               child: Image.asset(
-                "assets/images/image1_tr.png",
-                width: size.width * 1.0,
+                "assets/images/logo.png",
+                width: size.width * 0.75,
               ),
             ),
             SizedBox(height: size.height * 0.05),
@@ -96,7 +99,7 @@ class Body extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           gradient: const LinearGradient(colors: [
                             Color.fromRGBO(143, 148, 251, 1),
-                            Color.fromRGBO(143, 148, 251, .6),
+                            Color.fromRGBO(143, 148, 251, 0.6),
                           ])),
                       child: const Center(
                         child: Text(

@@ -39,24 +39,40 @@ class _RetailerPageState extends State<RetailerPage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
+            DrawerHeader(
               decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-                  Color.fromRGBO(79, 84, 201, 1),
-                  Color.fromRGBO(111, 117, 227, 1),
-                ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+                // gradient: LinearGradient(colors: [
+                //   Color.fromRGBO(79, 84, 201, 1),
+                //   Color.fromRGBO(111, 117, 227, 1),
+                // ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+                color: kDefaultIconLightColor,
               ),
-              child: Text('Drawer Header'),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      child: Image.asset(
+                        "assets/images/logo.png",
+                        width: MediaQuery.of(context).size.width * 0.5,
+                      ),
+                    ),
+                  ]),
             ),
             ListTile(
-              title: const Text('Home'),
+              title: const Text(
+                'Home',
+                style: TextStyle(color: Color.fromRGBO(79, 84, 201, 1)),
+              ),
               selected: true,
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: const Text('Inventory'),
+              title: const Text('Inventory',
+                  style: TextStyle(color: Color.fromRGBO(79, 84, 201, 1))),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (context) {

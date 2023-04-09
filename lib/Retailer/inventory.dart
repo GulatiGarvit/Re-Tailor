@@ -200,7 +200,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
         .child("ShopItems")
         .child(shopId)
         .get();
-
+      
     DataSnapshot itemSnapshot;
 
     inventorySnapshot.children.forEach((element) async {
