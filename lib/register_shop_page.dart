@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:random_string/random_string.dart';
 import 'package:retailor/Animation/FadeAnimation.dart';
+import 'package:retailor/Retailer/retailer_page.dart';
 import 'package:retailor/Services/MyUtils.dart';
 import 'package:retailor/Services/firebase_auth.dart';
 import 'package:retailor/Services/firebase_db.dart';
@@ -165,6 +166,11 @@ class RegisterShop extends StatelessWidget {
                               _shopName, _regNo, latLong!);
                           Fluttertoast.showToast(
                               msg: "Data updated on database");
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RetailerPage()),
+                              (route) => false);
                         },
                         child: Container(
                           height: 50,
