@@ -4,6 +4,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:retailor/Retailer/retailer_page.dart';
 import 'package:retailor/Services/CartItem.dart';
 import 'package:retailor/Services/MyUtils.dart';
 
@@ -268,6 +270,7 @@ class _CartPageState extends State<CartPage> {
           .child("Items")
           .child(snapshot.key!)
           .get();
+      item.barcode = itemSnapshot.key!;
       item.quantity = int.parse(snapshot.value.toString());
       item.name = itemSnapshot.child('name').value.toString();
       item.manufacturer = itemSnapshot.child('manufacturer').value.toString();
@@ -330,14 +333,29 @@ class _CartPageState extends State<CartPage> {
         'quantity': item.quantity,
         'total': item.quantity! * int.parse(item.price!)
       });
+      final inventoryRef = FirebaseDatabase.instance
+          .ref()
+          .child("ShopItems")
+          .child(shopId!)
+          .child(item.barcode!)
+          .child('stock');
+      final invSnapshot = await inventoryRef.get();
+      await inventoryRef
+          .set(int.parse(invSnapshot.value.toString()) - item.quantity!);
     }
     await FirebaseDatabase.instance
         .ref()
         .child("Shops")
         .child(shopId!)
+        .child("bills")
         .child(billRef.key!)
         .set(DateTime.now().toString());
     Navigator.pop(context);
+    Fluttertoast.showToast(msg: "Bill uploaded to database");
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => RetailerPage()),
+        (route) => false);
   }
 
   calculateItemString() {
