@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -14,6 +13,8 @@ class ScannerScreen extends StatefulWidget {
 }
 
 class _ScannerScreenState extends State<ScannerScreen> {
+  var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  int dropDownValue = 1;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -78,6 +79,34 @@ class _ScannerScreenState extends State<ScannerScreen> {
                           ],
                         ),
                         Spacer(),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 5),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              items: numbers.map<DropdownMenuItem>((value) {
+                                return DropdownMenuItem(
+                                  value: value,
+                                  child: Text(
+                                    '$value',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  dropDownValue = value!;
+                                });
+                              },
+                              value: dropDownValue,
+                              icon: const Icon(Icons.arrow_drop_down),
+                              style: const TextStyle(color: Colors.deepPurple),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   )),

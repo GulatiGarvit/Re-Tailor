@@ -6,6 +6,7 @@ import 'package:pie_chart/pie_chart.dart';
 import 'package:retailor/Retailer/inventory.dart';
 import 'package:retailor/ScannerScreen/scanner_screen.dart';
 import 'package:retailor/Services/firebase_auth.dart';
+import 'package:retailor/constants.dart';
 
 import '../Services/Bill.dart';
 
@@ -45,7 +46,7 @@ class _RetailerPageState extends State<RetailerPage> {
                 //   Color.fromRGBO(79, 84, 201, 1),
                 //   Color.fromRGBO(111, 117, 227, 1),
                 // ], begin: Alignment.centerLeft, end: Alignment.centerRight),
-                color: kDefaultIconLightColor,
+                color: kPrimaryColor.withOpacity(0.5),
               ),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
