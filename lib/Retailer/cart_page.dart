@@ -22,6 +22,7 @@ class _CartPageState extends State<CartPage> {
   var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   bool isLoading = false;
   String? shopId;
+  var totalItems = 0;
   var items = <CartItem>[];
   @override
   void initState() {
@@ -78,7 +79,7 @@ class _CartPageState extends State<CartPage> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Spacer(),
-                      Text("${items.length}")
+                      Text("$totalItems")
                     ]),
                     SizedBox(
                       height: 5,
@@ -191,9 +192,12 @@ class _CartPageState extends State<CartPage> {
                                                 ),
                                               );
                                             }).toList(),
-                                            onChanged: (value) {
+                                            onChanged: (value) async {
+                                              item.quantity = value!;
+                                              await item.updateOnDatabse(
+                                                  widget.cartId);
                                               setState(() {
-                                                item.quantity = value!;
+                                                fetchCart();
                                               });
                                             },
                                             value: item.quantity,
@@ -247,6 +251,10 @@ class _CartPageState extends State<CartPage> {
 
   void fetchCart() async {
     items = <CartItem>[];
+    total = 0;
+    totalItems = 0;
+    subtotal = 0;
+    discount = 0;
     isLoading = true;
     setState(() {});
     final shopIdSnapshot = await FirebaseDatabase.instance
@@ -296,7 +304,10 @@ class _CartPageState extends State<CartPage> {
   int calculateDiscount() {
     int discount = 0;
     for (var element in items) {
-      discount += int.parse(element.mrp!) - int.parse(element.price!);
+      for (int i = 1; i <= element.quantity!; i++) {
+        totalItems++;
+        discount += int.parse(element.mrp!) - int.parse(element.price!);
+      }
     }
     return discount;
   }
@@ -304,7 +315,7 @@ class _CartPageState extends State<CartPage> {
   int calculatesubTotal() {
     int subTotal = 0;
     for (var element in items) {
-      subTotal += int.parse(element.mrp!);
+      subTotal += (int.parse(element.mrp!) * element.quantity!);
     }
     return subTotal;
   }

@@ -55,7 +55,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
               child: FloatingActionButton(
                 onPressed: () async {
                   await currentItem!.updateOnDatabse(cartId!);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
                     return CartPage(cartId!);
                   }));
                 },

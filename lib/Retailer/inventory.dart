@@ -30,8 +30,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
   @override
   Widget build(BuildContext context) {
     var backgroundHeight = MediaQuery.of(context).size.height / 6;
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(
           "Inventory",
@@ -180,7 +179,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
           ),
         ],
       ),
-    ));
+    );
   }
 
   void fetchInventory(String searchTerm) async {
