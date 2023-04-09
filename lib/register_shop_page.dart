@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
@@ -161,6 +162,12 @@ class RegisterShop extends StatelessWidget {
                             return;
                           }
                           shopId = randomAlpha(10);
+                          await FirebaseDatabase.instance
+                              .ref()
+                              .child('Users')
+                              .child(FirebaseAuth.instance.currentUser!.uid)
+                              .child("shopId")
+                              .set(shopId);
                           await MyUtils.addToSharedRef("shopId", shopId);
                           MyFirebaseDatabase.addShop(shopId, _shopAddress,
                               _shopName, _regNo, latLong!);
