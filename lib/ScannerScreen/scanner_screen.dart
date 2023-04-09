@@ -32,13 +32,15 @@ class _ScannerScreenState extends State<ScannerScreen> {
   }
 
   int dropDownValue = 1;
+  MobileScannerController controller =
+      MobileScannerController(detectionTimeoutMs: 1000);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Stack(children: [
           MobileScanner(
-            controller: MobileScannerController(detectionTimeoutMs: 1000),
+            controller: controller,
             // fit: BoxFit.contain,
             onDetect: (capture) {
               final List<Barcode> barcodes = capture.barcodes;
@@ -55,8 +57,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
               child: FloatingActionButton(
                 onPressed: () async {
                   await currentItem!.updateOnDatabse(cartId!);
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
+                  controller.stop();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return CartPage(cartId!);
                   }));
                 },
