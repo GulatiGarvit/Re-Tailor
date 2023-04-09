@@ -39,16 +39,21 @@ class _ScannerScreenState extends State<ScannerScreen> {
     return SafeArea(
       child: Scaffold(
         body: Stack(children: [
-          MobileScanner(
-            controller: controller,
-            // fit: BoxFit.contain,
-            onDetect: (capture) {
-              final List<Barcode> barcodes = capture.barcodes;
-              final Uint8List? image = capture.image;
-              final barcode = barcodes.first;
-              Fluttertoast.showToast(msg: barcode.rawValue!);
-              processBarcode(barcode.rawValue!);
+          GestureDetector(
+            onTap: () {
+              controller.start();
             },
+            child: MobileScanner(
+              controller: controller,
+              // fit: BoxFit.contain,
+              onDetect: (capture) {
+                final List<Barcode> barcodes = capture.barcodes;
+                final Uint8List? image = capture.image;
+                final barcode = barcodes.first;
+                Fluttertoast.showToast(msg: barcode.rawValue!);
+                processBarcode(barcode.rawValue!);
+              },
+            ),
           ),
           Align(
             alignment: Alignment.topRight,
