@@ -324,6 +324,20 @@ class _CartPageState extends State<CartPage> {
       'shopId': shopId,
       'url': 'https://google.com'
     });
+    for (final item in items) {
+      await billRef.child("items").child(item.barcode!).set({
+        'price': item.price,
+        'quantity': item.quantity,
+        'total': item.quantity! * int.parse(item.price!)
+      });
+    }
+    await FirebaseDatabase.instance
+        .ref()
+        .child("Shops")
+        .child(shopId!)
+        .child(billRef.key!)
+        .set(DateTime.now().toString());
+    Navigator.pop(context);
   }
 
   calculateItemString() {
