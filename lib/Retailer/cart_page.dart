@@ -94,7 +94,10 @@ class _CartPageState extends State<CartPage> {
                       Text("Discount",
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       Spacer(),
-                      Text("₹${discount}")
+                      Text(
+                        "- ₹${discount}",
+                        style: TextStyle(color: Colors.green),
+                      )
                     ]),
                     SizedBox(
                       height: 5,

@@ -7,7 +7,6 @@ import 'package:retailor/Animation/FadeAnimation.dart';
 import 'package:retailor/Services/MyUtils.dart';
 import 'package:retailor/Services/firebase_auth.dart';
 import 'package:retailor/Services/firebase_db.dart';
-import 'package:retailor/choice_page.dart';
 
 import '../Login/login_screen.dart';
 import 'Services/location.dart';

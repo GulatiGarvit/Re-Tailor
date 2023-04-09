@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:retailor/Animation/FadeAnimation.dart';
+import 'package:retailor/Retailer/retailer_page.dart';
 import 'package:retailor/Services/MyUtils.dart';
 import 'package:retailor/Services/firebase_auth.dart';
 import 'package:retailor/Services/firebase_db.dart';
-import 'package:retailor/choice_page.dart';
+import 'package:retailor/register_shop_page.dart';
 
 import '../Login/login_screen.dart';
 
@@ -228,11 +229,12 @@ class SignUpScreen extends StatelessWidget {
         if (FirebaseAuth.instance.currentUser != null) {
           await MyFirebaseDatabase.addUser(
               FirebaseAuth.instance.currentUser!.uid, email, _name, _phoneNo);
+          FirebaseAuth.instance.currentUser!.updateDisplayName(_name);
           Fluttertoast.showToast(msg: "Signed Up Succesfully");
           Navigator.pop(context);
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                  builder: (BuildContext context) => ChoicePage()),
+                  builder: (BuildContext context) => RegisterShop()),
               (Route<dynamic> route) => false);
         } else {
           Navigator.of(context).pushReplacement(MaterialPageRoute(

@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:retailor/Services/MyUtils.dart';
 import 'package:retailor/Services/firebase_auth.dart';
 import 'package:retailor/Services/firebase_db.dart';
-import 'package:retailor/choice_page.dart';
 import 'package:retailor/customer_page.dart';
 import 'package:retailor/Retailer/retailer_page.dart';
 
@@ -197,7 +196,7 @@ class LoginScreen extends StatelessWidget {
           if (role.isEmpty) {
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                    builder: (BuildContext context) => ChoicePage()),
+                    builder: (BuildContext context) => RetailerPage()),
                 (Route<dynamic> route) => false);
           } else {
             if (role == "retailer") {
