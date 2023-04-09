@@ -134,7 +134,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                                         CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text(item.name!),
+                                      Text("${item.name!} (${item.stock})"),
                                       SizedBox(
                                         height: 2,
                                       ),
@@ -200,7 +200,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
         .child("ShopItems")
         .child(shopId)
         .get();
-      
+
     DataSnapshot itemSnapshot;
 
     inventorySnapshot.children.forEach((element) async {

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyUtils {
-  static showLoaderDialog(BuildContext context, {bool isCancellable = true}) {
+  static showLoaderDialog(BuildContext context,
+      {bool isCancellable = true, String title = "Loading..."}) {
     AlertDialog alert = AlertDialog(
       content: Row(
         children: [

@@ -9,6 +9,7 @@ import 'package:retailor/Services/firebase_auth.dart';
 import 'package:retailor/constants.dart';
 
 import '../Services/Bill.dart';
+import '../Services/MyUtils.dart';
 
 class RetailerPage extends StatefulWidget {
   @override
@@ -85,9 +86,10 @@ class _RetailerPageState extends State<RetailerPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
+          String cartId = await createCart();
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ScannerScreen()));
+              MaterialPageRoute(builder: (context) => ScannerScreen(cartId)));
         },
         backgroundColor: Color.fromRGBO(79, 84, 201, 1),
         child: Icon(Icons.add_shopping_cart),
@@ -200,6 +202,34 @@ class _RetailerPageState extends State<RetailerPage> {
         ],
       ),
     );
+  }
+
+  Future<String> createCart() async {
+    String cartId;
+    MyUtils.showLoaderDialog(context, title: "Initializing");
+    final userSnapshot = await FirebaseDatabase.instance
+        .ref()
+        .child("Users")
+        .child(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    String shopId = userSnapshot.child('shopId').value.toString();
+    if (userSnapshot.child('isScanning').value.toString() == true) {
+      cartId = userSnapshot.child('cartId').value.toString();
+    } else {
+      final ref = FirebaseDatabase.instance.ref().child("Carts").push();
+      await ref.set({
+        'shop': shopId,
+      });
+      await FirebaseDatabase.instance
+          .ref()
+          .child("Users")
+          .child(FirebaseAuth.instance.currentUser!.uid)
+          .update({"cartId": ref.key, 'isScanning': true});
+      cartId = ref.key!;
+    }
+
+    Navigator.pop(context);
+    return cartId;
   }
 
   void getBills() async {
