@@ -341,6 +341,6 @@ class _CartPageState extends State<CartPage> {
   }
 
   calculateItemString() {
-    return "${items[0].name}, ${items[1].name}...";
+    return "${items[0].name}...";
   }
 }
