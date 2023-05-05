@@ -34,87 +34,96 @@ class Body extends StatelessWidget {
     // This size provide us total height and width of our screen
     return Background(
       key: Key(''),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(bottom: 50),
-              child: Text(" RE-TAILOR ",
-                  style: TextStyle(
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.indigo)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          // Padding(
+          //   padding: const EdgeInsets.only(bottom: 50),
+          //   child: Text(" RE-TAILOR ",
+          //       style: TextStyle(
+          //           fontSize: 50,
+          //           fontWeight: FontWeight.bold,
+          //           color: Colors.indigo)),
+          // ),
+          Spacer(),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            child: Image.asset(
+              "assets/images/retailor_nobg.png",
+              width: size.width * 0.9,
             ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              child: Image.asset(
-                "assets/images/logo.png",
-                width: size.width * 0.75,
+          ),
+          Container(
+            transform: Matrix4.translationValues(0, -20, 0),
+            child: Text(
+              "Re-tailoring the retail experience",
+              style: TextStyle(
+                fontSize: 15,
+                fontFamily: 'BlackMango',
               ),
             ),
-            SizedBox(height: size.height * 0.05),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return LoginScreen();
-                      }));
-                    },
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: const LinearGradient(colors: [
-                            Color.fromRGBO(143, 148, 251, 1),
-                            Color.fromRGBO(143, 148, 251, .6),
-                          ])),
-                      child: const Center(
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
+          ),
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return LoginScreen();
+                    }));
+                  },
+                  child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: const LinearGradient(colors: [
+                          Color.fromRGBO(143, 148, 251, 1),
+                          Color.fromARGB(153, 143, 148, 251),
+                        ])),
+                    child: const Center(
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return SignUpScreen();
-                      }));
-                    },
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: const LinearGradient(colors: [
-                            Color.fromRGBO(143, 148, 251, 1),
-                            Color.fromRGBO(143, 148, 251, 0.6),
-                          ])),
-                      child: const Center(
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return SignUpScreen();
+                    }));
+                  },
+                  child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: const LinearGradient(colors: [
+                          Color.fromRGBO(143, 148, 251, 1),
+                          Color.fromRGBO(143, 148, 251, 0.6),
+                        ])),
+                    child: const Center(
+                      child: Text(
+                        "Sign Up",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
-                ],
-              ),
-            )
-          ],
-        ),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
