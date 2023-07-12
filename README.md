@@ -1,17 +1,16 @@
-# retailor
+# Retailor
 
-A new Flutter project.
+An inventory management cum POS application, empowering small shops to implement a smartphone based POS system, with the ability to scan barcodes from the phone. The application helps in:
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Keeping a track of items in stock, with the ability to add, delete, and modify the items
+- Scanning barcodes to generate an E-Receipt that can be sent to the customer's phone directly through an SMS
+- Mainting a central barcode databasing, easing the onboarding process for new shops and price regulation
+- Analyzing sale trends
+- Storing a record of E-Bills and customer info
 
-A few resources to get you started if this is your first Flutter project:
+## Future Goals
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-"# Re-Tailor" 
+- Implementing ML to optimize inventory based on past perfomance/current market trends
+- Publicizing the shop's inventory to help advertize the shop's products and offers
